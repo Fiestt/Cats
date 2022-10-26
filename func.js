@@ -22,22 +22,55 @@ const createCard = (data, parent, arr) => {
     name.innerText = data.name;
 
     card.append(pic, age, rate, name);
-    card.addEventListener("click", function() {
-        showPopup(arr, "card", data.description);
+    card.addEventListener("click", function(e) {
+
+
+        let pickedCard = e.currentTarget;
+        console.log(pickedCard)
+        showPopup(arr, "card", data.age, data.img_link, data.name, data.description, pickedCard);
     });
     parent.append(card);
+    
+    
 }
 
-const showPopup = (list, type, content) => {
+
+
+const showPopup = (list, type, catAge, catPic, catName, content, pickedCard) => {
     let el = list.filter(el => el.dataset.type === type)[0];
-    // switch (type) {
-    //     case "card": 
-    //     case "info":
-    //     case "form":
-    // }
+    
+    if (type === "card") {
+        el.classList.add("main")
+        
+        let card = document.createElement("div")
+        card.classList.add("main");
+        el.append(card)
+
+        let descr = document.createElement("div")
+        descr.innerText = content
+
+        let name = document.createElement("div")
+        name.innerText =  catName
+
+        let age = document.createElement("div")
+        age.innerText =  catAge
+
+        let rate = document.createElement("div")
+        rate.innerHTML =  "<span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>";
+
+        let pic = document.createElement("div")
+        pic.style.backgroundImage = `url(${catPic})`;
+        pic.style.width = "200px"
+        pic.style.height = "200px"
+
+
+        card.append(pic, age, rate, name, descr)
+    }
+    
     el.classList.add("active");
     el.parentElement.classList.add("active");
-    if (type === "card") {el.lastElementChild.innerText = content};
+
+   
    
 }
 

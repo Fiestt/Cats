@@ -25,14 +25,14 @@ const updClose = document.querySelector(".upd__close");
 const updBlock = document.querySelector(".change");
 const btnDel = document.querySelector(".btnDel");
 const btnUpd = document.querySelector(".upd");
-const btnFilt = document.querySelector(".filter");
+const btnFilt = document.querySelector(".btnFilter");
 
 
 let catsList = localStorage.getItem("cats");
 if (catsList) {
     catsList = JSON.parse(catsList);
 }
-console.log(catsList);
+// console.log(catsList);
 
 const addForm = document.forms.add; //document.forms. -- массив с формамиб .add - айди
 
@@ -48,9 +48,6 @@ btnUpd.addEventListener("click", function(e) {
     updCat(e)
 })
 
-updClose.addEventListener("click", function(e) {
-    updBlock.classList.remove("active")
-});
 
 btnFilt.addEventListener("click", function(e) {
     filterCat(catsList);
@@ -85,6 +82,8 @@ popupList.forEach(p => {
     p.firstElementChild.addEventListener("click", e => {
         p.classList.remove("active");
         popBox.classList.remove("active");
+        p.classList.remove("main");
+        p.lastElementChild.remove()
     });
 });
 
@@ -96,8 +95,10 @@ popBox.addEventListener("click", function(e) {
     if (e.target === this) {
         popBox.classList.remove("active");
         popupList.forEach(p => {
-            if (p.classList.contains("active")) {
+            if (p.classList.contains("active") && p.classList.contains("main") ) {
                 p.classList.remove("active");
+                p.classList.remove("main");
+                p.lastElementChild.remove();
             }
         })
     }
@@ -105,7 +106,7 @@ popBox.addEventListener("click", function(e) {
 
 window.addEventListener ("click", function(e) {
     let classList = document.querySelectorAll(".card");
-    console.log(classList, e.target) 
+    // console.log(classList, e.target) 
     Array.from(classList).forEach(card => {
         if (card.classList.contains("anim") && e.target != btnDel) {
             card.classList.remove("anim");

@@ -186,3 +186,8 @@ h2 {
 .closeBtn:hover {
     font-size: 60px;
 }
+
+.main {
+    width: 500px;
+    height: 500px;
+}

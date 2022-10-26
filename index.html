@@ -11,10 +11,10 @@
 <body>
     <!-- nav.dashboard>.btn*5^main.container>.card*6>.pic+.age+.rate+.name -->
     <nav class="dashboard">
-        <div class="btn">+</div>
+        <div class="btn btnAdd">+</div>
         <div class="btn btnDel">х</div>
-        <div class="btn filter">сорт</div>
-        <div class="btn"></div>
+        <div class="btn btnUpd">Изменить</div>
+        <div class="btn btnFilter">Сортировать</div>
         <div class="btn"></div>
     </nav>
     <main class="container">
@@ -35,10 +35,36 @@
     <div class="popup-wrapper active">
         <div class="popup active" data-type="card">
             <div class="close">+</div>
-            <div class="content">xcz</div>
-            <textarea class="change" id="i7" name="description"></textarea>
             <div class="upd">🖉</div>
-            <div class="upd__close">🗙</div>
+            <!-- <form id="upd">
+                .row*7>label[for=i$]+input#i$
+                <div class="row">
+                    <label for="i1">Имя котика</label>
+                    <input type="text" id="i1" name="name" required></div>
+                <div class="row">
+                    <label for="i3">Ссылка на картинку</label>
+                    <input type="text" id="i3" name="img_link">
+                </div>
+                <div class="row">
+                    <label for="i4">Возраст</label>
+                    <input type="number" id="i4" name="age" min="0" max="100">
+                </div>
+                <div class="row">
+                    <label for="i5">Рейтинг</label>
+                    <input type="range" id="i5" name="rate" min="0" max="10" value="10">
+                </div>
+                <div class="row">
+                    <label for="i6">
+                        <input type="checkbox" id="i6" name="favourite">
+                        Любимчик
+                    </label>
+                </div>
+                <div class="row">
+                    <label for="i7">Описание</label>
+                    <textarea id="i7" name="description"></textarea>
+                </div>
+                <button type="submit">Изменить котика</button>
+            </form> -->
         </div>
         <div class="popup" data-type="add">
             <div class="close">+</div>
