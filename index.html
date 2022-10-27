@@ -13,7 +13,6 @@
     <nav class="dashboard">
         <div class="btn btnAdd">+</div>
         <div class="btn btnDel">х</div>
-        <div class="btn btnUpd">Изменить</div>
         <div class="btn btnFilter">Сортировать</div>
         <div class="btn"></div>
     </nav>
@@ -32,15 +31,15 @@
             <div class="id">12</div> 
         </div> -->
     </main>
-    <div class="popup-wrapper active">
+    <div class="popup-wrapper">
         <div class="popup active" data-type="card">
             <div class="close">+</div>
-            <div class="upd">🖉</div>
-            <!-- <form id="upd">
-                .row*7>label[for=i$]+input#i$
+            <div class="upd btnUpd">🖉</div>
+            <form id="upd" class="updForm">
+                <!-- .row*7>label[for=i$]+input#i$ -->
                 <div class="row">
                     <label for="i1">Имя котика</label>
-                    <input type="text" id="i1" name="name" required></div>
+                    <input type="text" id="i1" name="name" class="xxx"></div>
                 <div class="row">
                     <label for="i3">Ссылка на картинку</label>
                     <input type="text" id="i3" name="img_link">
@@ -64,7 +63,7 @@
                     <textarea id="i7" name="description"></textarea>
                 </div>
                 <button type="submit">Изменить котика</button>
-            </form> -->
+            </form>
         </div>
         <div class="popup" data-type="add">
             <div class="close">+</div>

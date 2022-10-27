@@ -1,7 +1,7 @@
 import Api from "./api.js"; // ./ - указатель на текущую папку, ../ - выход на 2 уровня вверх
 
 let user = document.cookie;
-console.log("u", user);
+// console.log("u", user);
 if (!user) {
     user = prompt("Пользователь не найден, укажите имя пользователя", "Fiestt2");
     document.cookie = `user=${user}`;
@@ -17,16 +17,14 @@ const api = new Api(user);
 
 
 const container = document.querySelector(".container");
-const btnAdd = document.querySelector(".dashboard").firstElementChild;
+const btnAdd = document.querySelector(".btnAdd");
 const popupList = document.querySelectorAll(".popup");
 const popBox = document.querySelector(".popup-wrapper");
 
-const updClose = document.querySelector(".upd__close");
-const updBlock = document.querySelector(".change");
 const btnDel = document.querySelector(".btnDel");
-const btnUpd = document.querySelector(".upd");
+const btnUpd = document.querySelector(".btnUpd");
 const btnFilt = document.querySelector(".btnFilter");
-
+let updForm = document.forms.upd;
 
 let catsList = localStorage.getItem("cats");
 if (catsList) {
@@ -44,9 +42,6 @@ btnDel.addEventListener("click", function (e) {
     delCat(catsList, api);
 })
 
-btnUpd.addEventListener("click", function(e) {
-    updCat(e)
-})
 
 
 btnFilt.addEventListener("click", function(e) {
@@ -59,11 +54,11 @@ if (!catsList) {
     api.getCats()
         .then(res => res.json())
         .then(data => {
-            console.log(data);
+            // console.log(data);
             if (data.message === "ok") {
                 localStorage.setItem("cats", JSON.stringify(data.data));
                 data.data.forEach(cat => {
-                    createCard(cat, container, Array.from(popupList));
+                    createCard(cat, container, Array.from(popupList), api);
                 });
             } else {
                 showPopup(Array.from(popupList), "info", data.message);
@@ -118,3 +113,15 @@ window.addEventListener ("click", function(e) {
 })
 
 
+// updForm.addEventListener("focus", function(e) {
+    
+//     updCat(api)
+// })
+
+// var catId;
+let pickedCard;
+        
+btnUpd.addEventListener("click", function() {
+    // alert(catId)
+    updCat(Array.from(popupList), api, "card", catId, catsList);
+})

@@ -191,3 +191,11 @@ h2 {
     width: 500px;
     height: 500px;
 }
+
+.updForm {
+    display: none;
+}
+
+.formActive {
+    display: block;
+}

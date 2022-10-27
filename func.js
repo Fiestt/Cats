@@ -1,5 +1,6 @@
 
-const createCard = (data, parent, arr) => {
+
+const createCard = (data, parent, arr, api) => {
     const card = document.createElement("div");
     card.className = "card";
     // card.setAttribute("data-id", data.id);
@@ -25,22 +26,26 @@ const createCard = (data, parent, arr) => {
     card.addEventListener("click", function(e) {
 
 
-        let pickedCard = e.currentTarget;
+        pickedCard = e.currentTarget;
         console.log(pickedCard)
-        showPopup(arr, "card", data.age, data.img_link, data.name, data.description, pickedCard);
+        showPopup(arr, "card", data.age, data.img_link, data.name, data.description, pickedCard, api);
     });
     parent.append(card);
     
     
 }
+var catId
 
-
+// ---------------------------------------------------------------------- ПОПАП ---------------------------------------------------------------------------
 
 const showPopup = (list, type, catAge, catPic, catName, content, pickedCard) => {
     let el = list.filter(el => el.dataset.type === type)[0];
-    
+    // console.log(id)
     if (type === "card") {
+        catId = pickedCard.getAttribute("data-id");
         el.classList.add("main")
+        console.log(pickedCard)
+       
         
         let card = document.createElement("div")
         card.classList.add("main");
@@ -63,23 +68,151 @@ const showPopup = (list, type, catAge, catPic, catName, content, pickedCard) => 
         pic.style.width = "200px"
         pic.style.height = "200px"
 
-
         card.append(pic, age, rate, name, descr)
+
+        // let btnUpd = document.querySelector(".btnUpd");
+        
+        // btnUpd.addEventListener("click", (e) => {
+        //         let catsList = localStorage.getItem("cats");
+        //         if (catsList) {
+        //             catsList = JSON.parse(catsList);
+        //         }
+        //         let el = list.filter(el => el.dataset.type === type)[0];
+        //         let updForm = document.forms.upd;
+        //         updForm.classList.add("formActive");
+        //         el.lastElementChild.remove();
+        //         console.log(catId)
+                
+                // updForm.addEventListener("submit", (e) => {
+                    
+                //     e.preventDefault();
+                //    console.log(e.target)
+                //     let body = {}
+                //     let index;
+                //     let newCat;
+                //     console.log()
+                //     for (let i = 0; i < e.target.elements.length; i++) {
+                //         let el = e.target.elements[i]; // e.target - this сама форма, el это инпуты, form.elements хранит инпутыи др важные элементы формы для обработки без дивов 
+                //         // console.log(el);
+                //         if (el.name) {
+                //             if (el.type === "checkbox") {
+                //                 body[el.name] = el.checked;
+                //             } else if (el.value) {
+                //                 body[el.name] = el.value;
+                //             }
+                //         }
+                //         console.log(body, catsList);
+                //     }
+
+                //     for (let j =0; j < catsList.length; j++) {
+                //         if (catsList[j].id === +catId) {
+                //             index = catsList.indexOf(catsList[j]);
+                //             newCat = {...catsList[j], ...body}
+                //             // console.log(newCat);
+                        
+                //         }
+                        
+                //     }
+                //     console.log(newCat, +catId);
+
+                //     api.updCat(+catId, body)
+                //         .then(res => res.json())
+                //         .then(data => {
+                //             console.log(data.message);
+                //             location.reload();
+                //             if (data.message === "ok") {
+                //                 catsList.splice(index, 1, newCat);
+                //                 console.log(catsList);
+                //                 localStorage.setItem("cats", JSON.stringify(catsList));
+                //                 location.reload();
+                //             }
+                //     })
+
+                    
+                // })
+            // });
+            
+            
+      
+        // console.log(btnUpd)
+        
+       
     }
     
     el.classList.add("active");
     el.parentElement.classList.add("active");
-
-   
    
 }
+
+// ---------------------------------------------------------------------------- ИЗМЕНЕНИЕ КОТА -----------------------------------------------------------------------------
+
+const updCat = (list, api, type, catId, catsList) => {
+                // console.log(list)
+                let el = list.filter(el => el.dataset.type === type)[0];
+                let updForm = document.forms.upd;
+                updForm.classList.add("formActive");
+                el.lastElementChild.remove();
+                // console.log(catId)
+
+                updForm.addEventListener("submit", (e) => {
+                        
+                e.preventDefault();
+                console.log(e.target, "xxxx")
+                let body = {}
+                let index;
+                let newCat;
+                // console.log()
+                for (let i = 0; i < e.target.elements.length; i++) {
+                    let el = e.target.elements[i]; // e.target - this сама форма, el это инпуты, form.elements хранит инпутыи др важные элементы формы для обработки без дивов 
+                    // console.log(el);
+                    if (el.name) {
+                        if (el.type === "checkbox") {
+                            body[el.name] = el.checked;
+                        } else if (el.value) {
+                            body[el.name] = el.value;
+                        }
+                    }
+                    // console.log(body, catsList);
+                }
+
+                for (let j =0; j < catsList.length; j++) {
+                    if (catsList[j].id === +catId) {
+                        console.log(typeof(catsList[j].id), typeof(+catId))
+                        index = catsList.indexOf(catsList[j]);
+                        // console.log(index)
+                        newCat = {...catsList[j], ...body}
+                        // console.log(newCat);
+                    
+                    }
+                    
+                }
+                console.log(newCat, +catId);
+
+                api.updCat(+catId, body)
+                    .then(res => res.json())
+                    .then(data => {
+                        // console.log(data.message, index);
+                    
+                        if (data.message === "ok") {
+                            catsList.splice(index, 1, newCat);
+                            console.log(catsList);
+                            localStorage.setItem("cats", JSON.stringify(catsList));
+                            location.reload();
+                        }
+                })
+
+                
+            })
+}
+
+// ---------------------------------------------------------- ДОБАВЛЕНИЕ КОТА ------------------------------------------------------------------
 
 const addCat = (e, api, popupList, store) => {
     e.preventDefault();
     let body = {}; // хранит тело запроса {name: "Vasya"\, id: 1, ...}
     for (let i = 0; i < e.target.elements.length; i++) {
         let el = e.target.elements[i]; // e.target - this сама форма, el это инпуты, form.elements хранит инпутыи др важные элементы формы для обработки без дивов 
-        console.log(el);
+        // console.log(el);
         if (el.name) {
             if (el.type === "checkbox") {
                 body[el.name] = el.checked;
@@ -88,11 +221,11 @@ const addCat = (e, api, popupList, store) => {
             }
         }
     }
-    console.log(body, "xxxxxxxxxxxxx");
+    // console.log(body, "xxxxxxxxxxxxx");
     api.addCat(body)
         .then(res => res.json())
         .then(data => {
-            console.log(data.message);
+            // console.log(data.message);
             if (data.message === "ok") {
                 // localStorage.setItem("cat",JSON.stringify(body))
                 createCard(body, document.querySelector(".container"));
@@ -133,6 +266,8 @@ const addCat = (e, api, popupList, store) => {
 //         })
 
 // }
+
+// ------------------------------------------------- УДАЛЕНИЕ КОТА --------------------------------------------------------------------
 
 const delCat = (catsList, api) => {
     let catId;
@@ -184,17 +319,17 @@ const delCat = (catsList, api) => {
     
 }
     
-const updCat = (e) => {
-    console.log(e);
-    let body = {};
-    let updBlock = document.querySelector(".change");
-    updBlock.classList.add("active");
-    document.querySelector(".content").innerText = updBlock.value;
+// const updCat = (e) => {
+//     // console.log(e);
+//     let body = {};
+//     let updBlock = document.querySelector(".change");
+//     updBlock.classList.add("active");
+//     document.querySelector(".content").innerText = updBlock.value;
     
-    // catsList.forEach(cat => {
-    //     cat.description = updBlock.value
-    // });
-}
+//     // catsList.forEach(cat => {
+//     //     cat.description = updBlock.value
+//     // });
+// }
 
 const filterCat = (e, catsList) => {
 
