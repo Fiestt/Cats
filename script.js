@@ -113,12 +113,6 @@ window.addEventListener ("click", function(e) {
 })
 
 
-// updForm.addEventListener("focus", function(e) {
-    
-//     updCat(api)
-// })
-
-// var catId;
 let pickedCard;
         
 btnUpd.addEventListener("click", function() {

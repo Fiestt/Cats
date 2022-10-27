@@ -6,13 +6,16 @@ const createCard = (data, parent, arr, api) => {
     // card.setAttribute("data-id", data.id);
     card.dataset.id = data.id;
 
+    const infoCat = document.createElement("div");
+    infoCat.className = "infoCat";
+
     const age = document.createElement("div");
     age.className = "age";
-    age.innerText = data.age || "Возраст не известен";
+    age.innerText = `Возраст: ${data.age}` || "Возраст не известен";
 
     const rate = document.createElement("div");
     rate.className = "rate";
-    rate.innerHTML = "<span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>";
+    rate.innerHTML = "<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>";
 
     const pic = document.createElement("div");
     pic.className = "pic";
@@ -22,7 +25,9 @@ const createCard = (data, parent, arr, api) => {
     name.className = "name";
     name.innerText = data.name;
 
-    card.append(pic, age, rate, name);
+    infoCat.append(name, age, rate );
+
+    card.append(pic, infoCat);
     card.addEventListener("click", function(e) {
 
 
