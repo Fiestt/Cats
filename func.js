@@ -2,7 +2,8 @@
 
 const createCard = (data, parent, arr, api) => {
     const card = document.createElement("div");
-    card.className = "card";
+    card.className = "card effects";
+  
     // card.setAttribute("data-id", data.id);
     card.dataset.id = data.id;
 
@@ -32,14 +33,14 @@ const createCard = (data, parent, arr, api) => {
 
 
         pickedCard = e.currentTarget;
-        console.log(pickedCard)
+        // console.log(pickedCard)
         showPopup(arr, "card", data.age, data.img_link, data.name, data.description, pickedCard, api);
     });
     parent.append(card);
     
     
 }
-var catId
+let catId
 
 // ---------------------------------------------------------------------- ПОПАП ---------------------------------------------------------------------------
 
@@ -50,30 +51,53 @@ const showPopup = (list, type, catAge, catPic, catName, content, pickedCard) => 
         catId = pickedCard.getAttribute("data-id");
         el.classList.add("main")
         console.log(pickedCard)
-       
         
         let card = document.createElement("div")
-        card.classList.add("main");
+        card.classList.add("pickedCard");
         el.append(card)
 
+        let pic = document.createElement("div");
+        pic.classList.add("pickedCard__pic");
+        pic.style.backgroundImage = `url(${catPic})`;
+        
+
         let descr = document.createElement("div")
-        descr.innerText = content
+        let catDesr = document.createElement("h3");
+        catDesr.classList.add("catDesr")
+        let catinfo = document.createElement("p")
+        catinfo.classList.add("catinfo")
+
+        descr.classList.add("pickedCard__decsr");
+        descr.append(catDesr, catinfo);
+        catDesr.innerText = "Описание:"
+        catinfo.innerText = content;
 
         let name = document.createElement("div")
-        name.innerText =  catName
+        let catNnickname = document.createElement("h3");
+        let nickname = document.createElement("p")
+        name.append(catNnickname, nickname)
+        catNnickname.innerText = "Имя:"
+        name.classList.add("pickedCard__name");
+        // name.innerHTML=  `<span>Имя:</span> <span>${catName}</span>`
+        nickname.innerText = catName     
 
-        let age = document.createElement("div")
-        age.innerText =  catAge
+        let age = document.createElement("div");
+        let catText = document.createElement("h3");
+        let  ageNumber= document.createElement("p")
+        age.append(catText, ageNumber)
+        age.classList.add("pickedCard__age");
+        catText.innerText =  `Возраст: `
+        ageNumber.innerText =  catAge
 
-        let rate = document.createElement("div")
-        rate.innerHTML =  "<span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>";
+        let rate = document.createElement("div");
+        rate.classList.add("pickedCard__rate");
+        rate.innerHTML =  "<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>";
 
-        let pic = document.createElement("div")
-        pic.style.backgroundImage = `url(${catPic})`;
-        pic.style.width = "200px"
-        pic.style.height = "200px"
-
-        card.append(pic, age, rate, name, descr)
+       
+        let aboutCat = document.createElement("div");
+        aboutCat.classList.add("aboutCat");
+        aboutCat.append(name, age, rate, descr)
+        card.append(pic, aboutCat)
 
         // let btnUpd = document.querySelector(".btnUpd");
         
@@ -153,6 +177,7 @@ const showPopup = (list, type, catAge, catPic, catName, content, pickedCard) => 
 
 const updCat = (list, api, type, catId, catsList) => {
                 // console.log(list)
+                document.querySelector(".btnUpd").classList.add("upd")
                 let el = list.filter(el => el.dataset.type === type)[0];
                 let updForm = document.forms.upd;
                 updForm.classList.add("formActive");
@@ -282,14 +307,19 @@ const delCat = (catsList, api) => {
     for (let i =0; i < cardList.length; i++) {
     
         cardList[i].classList.add("anim");
+        cardList[i].classList.add("delCard");
+        cardList[i].classList.remove("effects");
+        // cardList[i].style.overflow = "visible";
         let closeBtn = document.createElement("button");
-        closeBtn.innerText = "🗙";
+        closeBtn.innerText = "+";
+        // closeBtn.classList.add("close");
         closeBtn.classList.add("closeBtn");
         closeBtn.setAttribute("type", "button");
         let main = document.querySelector("main");
         cardList[i].append(closeBtn);
 
         closeBtn.addEventListener ("click", (e) => {
+            cardList[i].style.overflow = "hidden";
             e.stopPropagation()
             // console.log (e.target);
             catId = e.target.parentElement.getAttribute("data-id");

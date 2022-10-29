@@ -2,6 +2,10 @@
     font-family: sans-serif;
 }
 
+h1, h2, h3, h4, p {
+    margin: 0;
+}
+
 body {
     background-color: silver;
     display: grid;
@@ -41,7 +45,7 @@ body {
     border-radius: 8px;
     box-shadow: 0 0 5px 0 silver;
 }
-.card {
+.card{
     height: 300px;
     box-shadow: 0 0 15px 0 rgb(12, 12, 12);
     border-radius: 8px;
@@ -50,7 +54,7 @@ body {
    
 }
 
-.card:hover {
+.effects:hover {
     cursor: pointer;
 }
 
@@ -79,18 +83,18 @@ body {
     transition: 0.5s;
 }
 
-.card:hover .infoCat {
+.effects:hover .infoCat {
     height: 105px;
     background: black;
 }
 
-.card:hover .infoCat>.age,
-.card:hover .infoCat>.rate {
+.effects:hover .infoCat>.age,
+.effects:hover .infoCat>.rate {
     
     visibility: visible;
 }
 
-.card:hover .pic {
+.effects:hover .pic {
     transform: scale(1.1) rotate(-3deg);
 }
 
@@ -151,9 +155,9 @@ span {
     align-items: center;
 }
 .popup {
-    padding: 30px;
+    padding: 15px;
     background-color: #dedede;
-    width: 300px;
+    width: 300px; 
     box-sizing: border-box;
     border-radius: 8px;
     position: relative;
@@ -165,7 +169,7 @@ span {
     height: 30px;
     border-radius: 50%;
     border: 1px solid silver;
-    background-color: #cebebe;
+    background-color: #f06f6f;
     color: #fff;
     font-size: 24px;
     display: flex;
@@ -185,13 +189,21 @@ span {
     justify-content: center;
     padding: 5px calc(50% - 100px);
 }
-.popup>.upd {
+.btnUpd {
     position: absolute;
     right: 5px;
     cursor: pointer;
     font-size: 20px;
+    /* transition: 0.3s; */
+    bottom: 20px;
+    left: 360px;
 }
-.popup>.upd:hover {
+
+.upd {
+    visibility: hidden;
+}
+
+.btnUpd:hover {
     font-size: 25px;
 }
 .change {
@@ -242,23 +254,29 @@ h2 {
 }
 
 .closeBtn { 
-    position: absolute;
-    top: -0px;
-    right: 0px;
-    font-size: 50px;
-    cursor: pointer;
-    z-index: 10;
+  
     pointer-events: auto;
-    color: red;
-    font-weight: bold;
-}
-.closeBtn:hover {
-    font-size: 60px;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid silver;
+    background-color: #f06f6f;
+    color: #fff;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1;
+    transform: rotate(45deg);
+    top: -10px;
+    right: -10px;
+    cursor: pointer;
 }
 
+
 .main {
-    width: 500px;
-    height: 500px;
+    width: 400px;
 }
 
 .updForm {
@@ -268,3 +286,53 @@ h2 {
 .formActive {
     display: block;
 }
+
+.pickedCard__pic {
+    width: 100%;
+    height: 300px;
+    background-color: rgb(231, 16, 16);
+    border-radius: 8px;
+    background-size: cover;
+    background-position: center;
+}
+
+.aboutCat {
+    padding-top: 10px;
+    display: grid;
+    row-gap: 10px;
+    grid-template-columns: 290px 22px;
+}
+
+.pickedCard__name {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.pickedCard__age {
+    grid-row-start: 2;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.pickedCard__rate {
+    display: flex;
+    grid-row-start: 3;
+    gap: 5px;
+    font-size: 30px;
+}
+
+.pickedCard__decsr {
+    grid-row-start: 4;
+}
+
+.catinfo {
+    padding-top: 10px;
+}
+
+.delCard {
+    overflow: visible;
+   
+}
+

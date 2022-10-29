@@ -78,7 +78,9 @@ popupList.forEach(p => {
         p.classList.remove("active");
         popBox.classList.remove("active");
         p.classList.remove("main");
-        p.lastElementChild.remove()
+        p.lastElementChild.classList.remove("formActive");
+        p.firstElementChild.nextElementSibling.classList.remove("upd")
+        document.querySelector(".pickedCard").remove()
     });
 });
 
@@ -93,7 +95,9 @@ popBox.addEventListener("click", function(e) {
             if (p.classList.contains("active") && p.classList.contains("main") ) {
                 p.classList.remove("active");
                 p.classList.remove("main");
-                p.lastElementChild.remove();
+                p.firstElementChild.nextElementSibling.classList.remove("upd")
+                p.lastElementChild.classList.remove("formActive");
+                document.querySelector(".pickedCard").remove()
             }
         })
     }
@@ -105,6 +109,8 @@ window.addEventListener ("click", function(e) {
     Array.from(classList).forEach(card => {
         if (card.classList.contains("anim") && e.target != btnDel) {
             card.classList.remove("anim");
+            card.classList.remove("delCard");
+            card.classList.add("effects");
             let closeBtn = document.querySelectorAll(".closeBtn");
             closeBtn.forEach(btn => btn.remove())
 
