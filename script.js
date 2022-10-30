@@ -44,12 +44,6 @@ btnDel.addEventListener("click", function (e) {
 
 
 
-btnFilt.addEventListener("click", function(e) {
-    filterCat(catsList);
-});
-
-
-
 if (!catsList) {
     api.getCats()
         .then(res => res.json())
@@ -76,6 +70,7 @@ if (!catsList) {
 popupList.forEach(p => {
     p.firstElementChild.addEventListener("click", e => {
         p.classList.remove("active");
+        p.removeAttribute("style")
         popBox.classList.remove("active");
         p.classList.remove("main");
         p.lastElementChild.classList.remove("formActive");
@@ -95,9 +90,12 @@ popBox.addEventListener("click", function(e) {
             if (p.classList.contains("active") && p.classList.contains("main") ) {
                 p.classList.remove("active");
                 p.classList.remove("main");
+                p.removeAttribute("style")
                 p.firstElementChild.nextElementSibling.classList.remove("upd")
                 p.lastElementChild.classList.remove("formActive");
                 document.querySelector(".pickedCard").remove()
+            } else {
+                p.classList.remove("active")
             }
         })
     }

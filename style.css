@@ -39,12 +39,39 @@ body {
     align-content: flex-start;
     box-sizing: border-box;
 }
+
+.container::-webkit-scrollbar {
+    width: 0;
+}
+
+.btnAdd {
+    background-image: url("/img/add.png");
+    background-repeat : no-repeat;
+    background-size:100% 100%;
+}
+
+.btnDel {
+    background-image: url("/img/delete.png");
+    background-repeat : no-repeat;
+    background-size:100% 100%;
+}
+
 .btn {
     width: 50px;
     height: 50px;
     border-radius: 8px;
-    box-shadow: 0 0 5px 0 silver;
+    /* box-shadow: 0 0 5px 0 silver; */
+    cursor: pointer;
+    position: relative;
+    transition: 0.3s;
+    /* overflow: hidden; */
 }
+
+.btn:hover {
+    transform: scale(1.1);
+    
+}
+
 .card{
     height: 300px;
     box-shadow: 0 0 15px 0 rgb(12, 12, 12);
@@ -69,7 +96,7 @@ body {
 }
 
 .infoCat{
-    width: 194.4px;
+    width: 200px;
     height: 40px;
     display: grid;
     grid-template-columns: 150px 40px;
@@ -181,14 +208,7 @@ span {
     right: -10px;
     cursor: pointer;
 }
-.popup>.content {
-  
-    background-color: aqua;
-    width: 200px;
-    display: flex;
-    justify-content: center;
-    padding: 5px calc(50% - 100px);
-}
+
 .btnUpd {
     position: absolute;
     right: 5px;
@@ -222,23 +242,6 @@ span {
 }
 .popup-wrapper.active {
     display: flex;
-}
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-.row {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-h2 {
-    margin: 0;
-}
-
-.popup h2 {
-    margin-bottom: 30px;
 }
 
 .anim {
@@ -335,4 +338,80 @@ h2 {
     overflow: visible;
    
 }
+
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.row {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 6px;
+    padding-top: 10px;
+}
+ 
+
+input {
+    width: 100%;
+
+    border: none;
+    border-bottom: 1px solid #141414;
+    background-color: transparent;
+    outline: none;
+    transition: 0.3s;
+
+}
+
+input:focus {
+    border-bottom: 1px solid #0071f0;
+}
+
+.checkFavor {
+    display: flex;
+    align-items: flex-start;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #0071f0;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+button:focus,
+button:hover {
+    background-color: rgba(0, 113, 240, 0.7);
+}
+
+textarea {
+    background-color: #b8bcc2;
+    border: 2px solid transparent;
+    outline: none;
+    resize: none;
+    border-radius: 10px;
+}
+
+textarea:focus {
+    border: 1px solid #0071f0;
+    cursor: text;
+}
+
+input:focus + label, label:active, 
+textarea:focus + label, label:active {
+
+    color:#0071f0;
+} 
+
+
+
+
+
+
 
